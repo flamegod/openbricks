@@ -1,9 +1,16 @@
 #!/bin/sh
 
+. /etc/funcs
+
 pre_umount () {
   [ -f /lib/systemd/system/automounter-nfs.service ] && systemctl stop automounter-nfs.service
   [ -f /lib/systemd/system/automounter-smb.service ] && systemctl stop automounter-smb.service
 }
+
+echo 0 > /sys/class/graphics/fbcon/cursor_blink
+
+wait_for_network
+mount -t nfs 192.168.178.22:/volume1/xbmc/geexbox /root/.xbmc -o rw,nolock,bg
 
 [ -n "$LOGFILE" ] || LOGFILE="/dev/null"
 /usr/lib/xbmc/xbmc.bin $@
