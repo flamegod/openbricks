@@ -7,6 +7,11 @@ pre_umount () {
 
 echo 0 > /sys/class/graphics/fbcon/cursor_blink
 
+. /etc/funcs
+
+wait_for_network
+mount -t nfs 192.168.178.22:/volume1/xbmc/geexbox /root/.xbmc -o rw,nolock,bg
+
 [ -n "$LOGFILE" ] || LOGFILE="/dev/null"
 /usr/lib/xbmc/xbmc.bin $@
 EXIT_CODE=$?
