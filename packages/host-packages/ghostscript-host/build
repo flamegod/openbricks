@@ -18,7 +18,8 @@ setup_toolchain host
 do_configure host --without-jbig2dec --without-x --with-system-libtiff --without-jasper --disable-fontconfig --without-libidn --disable-freetype
 
 #make XTRALIBS="-lz"
-make
+make XTRALIBS="-ljbig"
+#make
 
 mkdir -p .install/bin
 cp obj/aux/* .install/bin
